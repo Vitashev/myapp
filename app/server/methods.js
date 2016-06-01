@@ -1,15 +1,6 @@
-import {Mongo} from 'meteor/mongo';
+import {Resolutions} from '../imports/api/collections/lists.js';
 import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
- 
-export const Resolutions = new Mongo.Collection('resolutions');
-
-if (Meteor.isServer) {
-    Meteor.publish('resolutions', () => (
-    Resolutions.find()
-));
-
-}
 
 Meteor.methods({
   'resolutions.insert'(text) {
@@ -31,5 +22,11 @@ Meteor.methods({
     check(id, String);
  
     Resolutions.remove(id);
+  },
+    'resolutions.update'(id, isComplete) {
+    check(id, String);
+    check(isComplete, Boolean);
+ 
+    Resolutions.update(id, {$set: {complete: !isComplete}});
   }
 });

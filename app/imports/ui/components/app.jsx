@@ -1,14 +1,31 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import { Meteor } from 'meteor/meteor';
+import {Meteor} from 'meteor/meteor';
 
-import {Resolutions} from '../../api/lists/lists.js';
-import {createContainer} from 'meteor/react-meteor-data';
+import {Resolutions} from '../../api/collections/lists.js';
+
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import Title from './title.jsx';
-import Register from './register.jsx';
-import Login from './login.jsx';
+import SingleItem from './single-item.jsx';
 
-export default class App extends Component {
+export default class App extends TrackerReact(Component) {
+    
+    constructor(props){
+        super(props);
+        this.state = {
+            subscriptions: {
+               resolutions:  Meteor.subscribe('allResolutions')
+            }
+        }
+    }
+    
+    componentWillUnmount(){
+        this.state.subscriptions.resolutions.stop();
+    }
+    
+    resolutions(){
+        return Resolutions.find().fetch();
+    } 
     
     addResolution(event){
         event.preventDefault();
@@ -17,25 +34,24 @@ export default class App extends Component {
         this.refs.resolution.value = '';
     }
     
-    deleteResolution(id){
-        Meteor.call('resolutions.remove', id);
-    }
-    
     render(){
+        
+        $('.dropdown-button').dropdown();
+        
      return (
          <div>
-             {(() => {
-                return (this.props.currentUser)?'Youre logged in.': <div><Register/><Login/></div>;
-            })()}
+            <a className='dropdown-button btn' href='#' data-activates='dropdown1'>Drop Me!</a>
+            <ul id='dropdown1' className='dropdown-content'>
+                <li><a href="#!">one</a></li>
+            </ul>
             <Title text="My app component" />
             <form onSubmit={this.addResolution.bind(this)}>
                 <input type="text" ref="resolution" />
+
             </form>
             <ul>
-            {this.props.resolutions.map((value) => (
-                <li key={value._id}>{value.text}  <button className="btn" onClick={() => this.deleteResolution(value._id)}>
-            delete
-            </button></li>
+            {this.resolutions().map((value) => (
+                <SingleItem resolution={value} key={value._id}/>
             ))}
             </ul>
          </div>    
@@ -43,19 +59,6 @@ export default class App extends Component {
          )   
     }
 }
-
-App.propTypes = {
-  resolutions: PropTypes.array.isRequired,
-  currentUser: PropTypes.object
-};
- 
-export default createContainer(() => {
-  Meteor.subscribe('resolutions');
-  return {
-    resolutions: Resolutions.find({}).fetch() || [],
-    currentUser: Meteor.user()
-  };
-}, App);
 
 
     

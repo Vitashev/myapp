@@ -1,12 +1,10 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Meteor} from 'meteor/meteor';
 import {Accounts} from 'meteor/accounts-base';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
-
-import {createContainer} from 'meteor/react-meteor-data';
-
-export default class Register extends Component {
+export default class Register extends TrackerReact(Component) {
     registerUser(event){
         event.preventDefault();
         let username = this.refs.registerUsername.value.trim();
@@ -19,11 +17,11 @@ export default class Register extends Component {
     
     render(){
         return (
-            <div>
-                <form onSubmit={this.registerUser.bind(this)}>
-                    <input type="text" ref="registerUsername"/>
-                    <input type="password" ref="registerPassword"/>
-                    <input type="submit" value="Register"/>
+            <div className="row">
+                <form className="col s12 black-text">
+                    <input type="text" className="input-field" ref="registerUsername"/>
+                    <input type="password" className="input-field" ref="registerPassword"/>
+                    <button type="submit" className="btn" onClick={this.registerUser.bind(this)}>Register</button>
                 </form>
             </div>
             )

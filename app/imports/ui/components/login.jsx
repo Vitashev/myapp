@@ -1,26 +1,25 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Meteor} from 'meteor/meteor';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
-
-import {createContainer} from 'meteor/react-meteor-data';
-
-export default class Login extends Component {
+export default class Login extends TrackerReact(Component) {
     loginUser(event){
         event.preventDefault();
-        
         let username = this.refs.loginUsername.value.trim();
         let password = this.refs.loginPassword.value.trim();
+        console.log("hi");
         Meteor.loginWithPassword(username, password);
     }
     
     render(){
         return (
-            <div>
-                <form onSubmit={this.loginUser.bind(this)}>
-                    <input type="text" ref="loginUsername"/>
-                    <input type="password" ref="loginPassword"/>
-                    <input type="submit" value="Login"/>
+            <div className="row">
+                <form className="col s12 black-text">
+                    <h5>Sign In</h5>
+                    <input type="text" ref="loginUsername" className="input-field"/>
+                    <input type="password" ref="loginPassword" className="input-field"/>
+                    <button className="btn" onClick={this.loginUser.bind(this)}>Login</button>
                 </form>
             </div>
             )
