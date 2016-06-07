@@ -16,3 +16,7 @@
 .cus-dropdown:hover .cus-dropdown-content {
     display: block;
 }
+
+.card-video{
+    width:100%;
+}

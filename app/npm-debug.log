@@ -1,0 +1,291 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/ubuntu/.nvm/versions/node/v4.4.3/bin/node',
+1 verbose cli   '/home/ubuntu/.nvm/versions/node/v4.4.3/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'materialize-css',
+1 verbose cli   '--save' ]
+2 info using npm@2.15.1
+3 info using node@v4.4.3
+4 verbose install initial load of /home/ubuntu/workspace/app/package.json
+5 verbose installManyTop reading scoped package data from /home/ubuntu/workspace/app/node_modules/classnames/package.json
+6 verbose installManyTop reading scoped package data from /home/ubuntu/workspace/app/node_modules/eslint/package.json
+7 verbose installManyTop reading scoped package data from /home/ubuntu/workspace/app/node_modules/eslint-config-airbnb/package.json
+8 verbose installManyTop reading scoped package data from /home/ubuntu/workspace/app/node_modules/eslint-plugin-import/package.json
+9 verbose installManyTop reading scoped package data from /home/ubuntu/workspace/app/node_modules/eslint-plugin-jsx-a11y/package.json
+10 verbose installManyTop reading scoped package data from /home/ubuntu/workspace/app/node_modules/eslint-plugin-meteor/package.json
+11 verbose installManyTop reading scoped package data from /home/ubuntu/workspace/app/node_modules/eslint-plugin-react/package.json
+12 verbose installManyTop reading scoped package data from /home/ubuntu/workspace/app/node_modules/meteor-node-stubs/package.json
+13 verbose installManyTop reading scoped package data from /home/ubuntu/workspace/app/node_modules/normalize.css/package.json
+14 verbose installManyTop reading scoped package data from /home/ubuntu/workspace/app/node_modules/react/package.json
+15 verbose installManyTop reading scoped package data from /home/ubuntu/workspace/app/node_modules/react-addons-css-transition-group/package.json
+16 verbose installManyTop reading scoped package data from /home/ubuntu/workspace/app/node_modules/react-addons-pure-render-mixin/package.json
+17 verbose installManyTop reading scoped package data from /home/ubuntu/workspace/app/node_modules/react-dom/package.json
+18 verbose installManyTop reading scoped package data from /home/ubuntu/workspace/app/node_modules/react-html5video/package.json
+19 verbose installManyTop reading scoped package data from /home/ubuntu/workspace/app/node_modules/react-mounter/package.json
+20 info package.json eslint-plugin-react@5.1.1 No README data
+21 verbose readDependencies loading dependencies from /home/ubuntu/workspace/app/package.json
+22 silly cache add args [ 'materialize-css', null ]
+23 verbose cache add spec materialize-css
+24 silly cache add parsed spec Result {
+24 silly cache add   raw: 'materialize-css',
+24 silly cache add   scope: null,
+24 silly cache add   name: 'materialize-css',
+24 silly cache add   rawSpec: '',
+24 silly cache add   spec: 'latest',
+24 silly cache add   type: 'tag' }
+25 silly addNamed materialize-css@latest
+26 verbose addNamed "latest" is being treated as a dist-tag for materialize-css
+27 info addNameTag [ 'materialize-css', 'latest' ]
+28 silly mapToRegistry name materialize-css
+29 silly mapToRegistry using default registry
+30 silly mapToRegistry registry https://registry.npmjs.org/
+31 silly mapToRegistry data Result {
+31 silly mapToRegistry   raw: 'materialize-css',
+31 silly mapToRegistry   scope: null,
+31 silly mapToRegistry   name: 'materialize-css',
+31 silly mapToRegistry   rawSpec: '',
+31 silly mapToRegistry   spec: 'latest',
+31 silly mapToRegistry   type: 'tag' }
+32 silly mapToRegistry uri https://registry.npmjs.org/materialize-css
+33 verbose addNameTag registry:https://registry.npmjs.org/materialize-css not in flight; fetching
+34 verbose request uri https://registry.npmjs.org/materialize-css
+35 verbose request no auth needed
+36 info attempt registry request try #1 at 12:43:23 PM
+37 verbose request id cb06a3b23b0d377e
+38 verbose etag "5YQI6F1V7QCQDVKFWAWISR0EA"
+39 http request GET https://registry.npmjs.org/materialize-css
+40 http 304 https://registry.npmjs.org/materialize-css
+41 verbose headers { date: 'Tue, 07 Jun 2016 12:43:24 GMT',
+41 verbose headers   via: '1.1 varnish',
+41 verbose headers   'cache-control': 'max-age=300',
+41 verbose headers   etag: '"5YQI6F1V7QCQDVKFWAWISR0EA"',
+41 verbose headers   age: '18',
+41 verbose headers   connection: 'keep-alive',
+41 verbose headers   'x-served-by': 'cache-lhr6346-LHR',
+41 verbose headers   'x-cache': 'HIT',
+41 verbose headers   'x-cache-hits': '1',
+41 verbose headers   'x-timer': 'S1465303404.412050,VS0,VE0',
+41 verbose headers   vary: 'Accept-Encoding' }
+42 silly get cb [ 304,
+42 silly get   { date: 'Tue, 07 Jun 2016 12:43:24 GMT',
+42 silly get     via: '1.1 varnish',
+42 silly get     'cache-control': 'max-age=300',
+42 silly get     etag: '"5YQI6F1V7QCQDVKFWAWISR0EA"',
+42 silly get     age: '18',
+42 silly get     connection: 'keep-alive',
+42 silly get     'x-served-by': 'cache-lhr6346-LHR',
+42 silly get     'x-cache': 'HIT',
+42 silly get     'x-cache-hits': '1',
+42 silly get     'x-timer': 'S1465303404.412050,VS0,VE0',
+42 silly get     vary: 'Accept-Encoding' } ]
+43 verbose etag https://registry.npmjs.org/materialize-css from cache
+44 verbose get saving materialize-css to /home/ubuntu/.npm/registry.npmjs.org/materialize-css/.cache.json
+45 verbose correctMkdir /home/ubuntu/.npm correctMkdir not in flight; initializing
+46 silly addNameTag next cb for materialize-css with tag latest
+47 silly addNamed materialize-css@0.97.6
+48 verbose addNamed "0.97.6" is a plain semver version for materialize-css
+49 silly cache afterAdd materialize-css@0.97.6
+50 verbose afterAdd /home/ubuntu/.npm/materialize-css/0.97.6/package/package.json not in flight; writing
+51 verbose correctMkdir /home/ubuntu/.npm correctMkdir not in flight; initializing
+52 verbose afterAdd /home/ubuntu/.npm/materialize-css/0.97.6/package/package.json written
+53 silly install resolved [ { name: 'materialize-css',
+53 silly install resolved     description: 'Builds Materialize distribution packages',
+53 silly install resolved     author: { name: 'Alvin Wang, Alan Chang' },
+53 silly install resolved     url: 'http://materializecss.com/',
+53 silly install resolved     version: '0.97.6',
+53 silly install resolved     main: 'bin/materialize.js',
+53 silly install resolved     license: 'MIT',
+53 silly install resolved     repository: { type: 'git', url: 'git://github.com/Dogfalo/materialize.git' },
+53 silly install resolved     dependencies:
+53 silly install resolved      { hammerjs: '^2.0.4',
+53 silly install resolved        jquery: '^2.1.4',
+53 silly install resolved        'node-archiver': '^0.2.0' },
+53 silly install resolved     engine: 'node >= 0.10',
+53 silly install resolved     devDependencies:
+53 silly install resolved      { autoprefixer: '^6.1.0',
+53 silly install resolved        grunt: '^0.4.5',
+53 silly install resolved        'grunt-banner': '^0.6.0',
+53 silly install resolved        'grunt-browser-sync': '^2.2.0',
+53 silly install resolved        'grunt-concurrent': '^2.0.0',
+53 silly install resolved        'grunt-contrib-clean': '^0.7.0',
+53 silly install resolved        'grunt-contrib-compress': '^0.14.0',
+53 silly install resolved        'grunt-contrib-concat': '^0.5.0',
+53 silly install resolved        'grunt-contrib-copy': '^0.8.0',
+53 silly install resolved        'grunt-contrib-cssmin': '^0.14.0',
+53 silly install resolved        'grunt-contrib-jade': '^0.15.0',
+53 silly install resolved        'grunt-contrib-jasmine': '^0.9.2',
+53 silly install resolved        'grunt-contrib-uglify': '^0.11.0',
+53 silly install resolved        'grunt-contrib-watch': '^0.6.0',
+53 silly install resolved        'grunt-notify': '^0.4.1',
+53 silly install resolved        'grunt-postcss': '^0.7.1',
+53 silly install resolved        'grunt-remove-logging': '^0.2.0',
+53 silly install resolved        'grunt-rename': '^0.1.4',
+53 silly install resolved        'grunt-sass': '^1.1.0',
+53 silly install resolved        'grunt-text-replace': '^0.4.0',
+53 silly install resolved        jasmine: '^2.3.2',
+53 silly install resolved        'jasmine-jquery': '^2.1.1',
+53 silly install resolved        jquery: '^2.1.4',
+53 silly install resolved        'node-sass': '^3.4.2',
+53 silly install resolved        phantomjs: '^1.9.18' },
+53 silly install resolved     scripts: { test: 'grunt travis --verbose' },
+53 silly install resolved     gitHead: '793e5716040cb133041b55be75b1fae51debb9f3',
+53 silly install resolved     bugs: { url: 'https://github.com/Dogfalo/materialize/issues' },
+53 silly install resolved     homepage: 'https://github.com/Dogfalo/materialize#readme',
+53 silly install resolved     _id: 'materialize-css@0.97.6',
+53 silly install resolved     _shasum: 'b4a7f7875005d5c43b2b22eaa7bdb74b050450fe',
+53 silly install resolved     _from: 'materialize-css@latest',
+53 silly install resolved     _npmVersion: '3.4.1',
+53 silly install resolved     _nodeVersion: '5.1.0',
+53 silly install resolved     _npmUser: { name: 'materialize', email: 'materializeframework@gmail.com' },
+53 silly install resolved     maintainers: [ [Object] ],
+53 silly install resolved     dist:
+53 silly install resolved      { shasum: 'b4a7f7875005d5c43b2b22eaa7bdb74b050450fe',
+53 silly install resolved        tarball: 'https://registry.npmjs.org/materialize-css/-/materialize-css-0.97.6.tgz' },
+53 silly install resolved     _npmOperationalInternal:
+53 silly install resolved      { host: 'packages-12-west.internal.npmjs.com',
+53 silly install resolved        tmp: 'tmp/materialize-css-0.97.6.tgz_1459573647102_0.9132420581299812' },
+53 silly install resolved     directories: {},
+53 silly install resolved     _resolved: 'https://registry.npmjs.org/materialize-css/-/materialize-css-0.97.6.tgz',
+53 silly install resolved     readme: 'ERROR: No README data found!' } ]
+54 info install materialize-css@0.97.6 into /home/ubuntu/workspace/app
+55 info installOne materialize-css@0.97.6
+56 verbose installOne of materialize-css to /home/ubuntu/workspace/app not in flight; installing
+57 verbose correctMkdir /home/ubuntu/.npm/_locks correctMkdir not in flight; initializing
+58 verbose lock using /home/ubuntu/.npm/_locks/materialize-css-6a2b99a585ca087b.lock for /home/ubuntu/workspace/app/node_modules/materialize-css
+59 silly install write writing materialize-css 0.97.6 to /home/ubuntu/workspace/app/node_modules/materialize-css
+60 verbose unbuild node_modules/materialize-css
+61 silly gentlyRm /home/ubuntu/workspace/app/node_modules/materialize-css is being purged from base /home/ubuntu/workspace/app
+62 verbose gentlyRm don't care about contents; nuking /home/ubuntu/workspace/app/node_modules/materialize-css
+63 verbose tar unpack /home/ubuntu/.npm/materialize-css/0.97.6/package.tgz
+64 verbose tar unpacking to /home/ubuntu/workspace/app/node_modules/materialize-css
+65 silly gentlyRm /home/ubuntu/workspace/app/node_modules/materialize-css is being purged
+66 verbose gentlyRm don't care about contents; nuking /home/ubuntu/workspace/app/node_modules/materialize-css
+67 silly gunzTarPerm modes [ '755', '644' ]
+68 silly gunzTarPerm extractEntry package.json
+69 silly gunzTarPerm extractEntry .npmignore
+70 silly gunzTarPerm extractEntry README.md
+71 silly gunzTarPerm extractEntry LICENSE
+72 silly gunzTarPerm extractEntry Gruntfile.js
+73 silly gunzTarPerm extractEntry package.js
+74 silly gunzTarPerm extractEntry grid.html
+75 silly gunzTarPerm extractEntry .travis.yml
+76 silly gunzTarPerm extractEntry CHANGELOG.md
+77 silly gunzTarPerm extractEntry CNAME
+78 silly gunzTarPerm extractEntry CONTRIBUTING.md
+79 silly gunzTarPerm extractEntry .editorconfig
+80 silly gunzTarPerm extractEntry .gitattributes
+81 silly gunzTarPerm extractEntry _SpecRunner.html
+82 silly gunzTarPerm extractEntry about.html
+83 silly gunzTarPerm extractEntry badges.html
+84 silly gunzTarPerm extractEntry bin/materialize.js
+85 silly gunzTarPerm extractEntry bin/materialize-src-v0.97.6.zip
+86 silly gunzTarPerm extractEntry bin/materialize-v0.97.6.zip
+87 silly gunzTarPerm extractEntry bin/materialize.css
+88 silly gunzTarPerm extractEntry bower.json
+89 silly gunzTarPerm extractEntry breadcrumbs.html
+90 silly gunzTarPerm extractEntry buttons.html
+91 silly gunzTarPerm extractEntry cards.html
+92 silly gunzTarPerm extractEntry chips.html
+93 silly gunzTarPerm extractEntry collapsible.html
+94 silly gunzTarPerm extractEntry collections.html
+95 silly gunzTarPerm extractEntry color.html
+96 silly gunzTarPerm extractEntry config.codekit
+97 silly gunzTarPerm extractEntry css/ghpages-materialize.css
+98 silly gunzTarPerm extractEntry css/prism.css
+99 silly gunzTarPerm extractEntry dialogs.html
+100 silly gunzTarPerm extractEntry dist/css/materialize.css
+101 silly gunzTarPerm extractEntry dist/css/materialize.min.css
+102 silly gunzTarPerm extractEntry dist/font/material-design-icons/LICENSE.txt
+103 silly gunzTarPerm extractEntry dist/font/material-design-icons/Material-Design-Icons.eot
+104 silly gunzTarPerm extractEntry dist/font/material-design-icons/Material-Design-Icons.svg
+105 silly gunzTarPerm extractEntry dist/font/material-design-icons/Material-Design-Icons.ttf
+106 silly gunzTarPerm extractEntry dist/font/material-design-icons/Material-Design-Icons.woff
+107 silly gunzTarPerm extractEntry dist/font/material-design-icons/Material-Design-Icons.woff2
+108 silly gunzTarPerm extractEntry dist/font/roboto/Roboto-Medium.woff
+109 silly gunzTarPerm extractEntry dist/font/roboto/Roboto-Bold.eot
+110 silly gunzTarPerm extractEntry dist/font/roboto/Roboto-Bold.woff
+111 silly gunzTarPerm extractEntry dist/font/roboto/Roboto-Bold.woff2
+112 silly gunzTarPerm extractEntry dist/font/roboto/Roboto-Light.eot
+113 silly gunzTarPerm extractEntry dist/font/roboto/Roboto-Light.ttf
+114 silly gunzTarPerm extractEntry dist/font/roboto/Roboto-Light.woff
+115 silly gunzTarPerm extractEntry dist/font/roboto/Roboto-Light.woff2
+116 silly gunzTarPerm extractEntry dist/font/roboto/Roboto-Medium.eot
+117 silly gunzTarPerm extractEntry dist/font/roboto/Roboto-Medium.ttf
+118 silly gunzTarPerm extractEntry dist/font/roboto/Roboto-Bold.ttf
+119 silly gunzTarPerm extractEntry dist/font/roboto/Roboto-Medium.woff2
+120 silly gunzTarPerm extractEntry dist/font/roboto/Roboto-Regular.eot
+121 silly gunzTarPerm extractEntry dist/font/roboto/Roboto-Regular.ttf
+122 silly gunzTarPerm extractEntry dist/font/roboto/Roboto-Regular.woff
+123 silly gunzTarPerm extractEntry dist/font/roboto/Roboto-Regular.woff2
+124 silly gunzTarPerm extractEntry dist/font/roboto/Roboto-Thin.eot
+125 silly gunzTarPerm extractEntry dist/font/roboto/Roboto-Thin.ttf
+126 silly gunzTarPerm extractEntry dist/font/roboto/Roboto-Thin.woff
+127 silly gunzTarPerm extractEntry dist/font/roboto/Roboto-Thin.woff2
+128 silly gunzTarPerm extractEntry dist/fonts/roboto/Roboto-Medium.woff
+129 silly gunzTarPerm extractEntry dist/fonts/roboto/Roboto-Bold.eot
+130 silly gunzTarPerm extractEntry dist/fonts/roboto/Roboto-Bold.woff
+131 silly gunzTarPerm extractEntry dist/fonts/roboto/Roboto-Bold.woff2
+132 silly gunzTarPerm extractEntry dist/fonts/roboto/Roboto-Light.eot
+133 silly gunzTarPerm extractEntry dist/fonts/roboto/Roboto-Light.ttf
+134 silly gunzTarPerm extractEntry dist/fonts/roboto/Roboto-Light.woff
+135 silly gunzTarPerm extractEntry dist/fonts/roboto/Roboto-Light.woff2
+136 silly gunzTarPerm extractEntry dist/fonts/roboto/Roboto-Medium.eot
+137 silly gunzTarPerm extractEntry dist/fonts/roboto/Roboto-Medium.ttf
+138 silly gunzTarPerm extractEntry dist/fonts/roboto/Roboto-Bold.ttf
+139 silly gunzTarPerm extractEntry dist/fonts/roboto/Roboto-Medium.woff2
+140 silly gunzTarPerm extractEntry dist/fonts/roboto/Roboto-Regular.eot
+141 silly gunzTarPerm extractEntry dist/fonts/roboto/Roboto-Regular.ttf
+142 silly gunzTarPerm extractEntry dist/fonts/roboto/Roboto-Regular.woff
+143 silly gunzTarPerm extractEntry dist/fonts/roboto/Roboto-Regular.woff2
+144 silly gunzTarPerm extractEntry dist/fonts/roboto/Roboto-Thin.eot
+145 silly gunzTarPerm extractEntry dist/fonts/roboto/Roboto-Thin.ttf
+146 silly gunzTarPerm extractEntry dist/fonts/roboto/Roboto-Thin.woff
+147 silly gunzTarPerm extractEntry dist/fonts/roboto/Roboto-Thin.woff2
+148 silly gunzTarPerm extractEntry dist/js/materialize.js
+149 silly gunzTarPerm extractEntry dist/js/materialize.min.js
+150 silly gunzTarPerm extractEntry dropdown.html
+151 silly gunzTarPerm extractEntry extras/noUiSlider/nouislider.js
+152 silly gunzTarPerm extractEntry extras/noUiSlider/nouislider.min.js
+153 silly gunzTarPerm extractEntry extras/noUiSlider/nouislider.css
+154 silly gunzTarPerm extractEntry fonts/roboto/Roboto-Medium.woff
+155 silly gunzTarPerm extractEntry fonts/roboto/Roboto-Bold.eot
+156 silly gunzTarPerm extractEntry fonts/roboto/Roboto-Bold.woff
+157 silly gunzTarPerm extractEntry fonts/roboto/Roboto-Bold.woff2
+158 silly gunzTarPerm extractEntry fonts/roboto/Roboto-Light.eot
+159 silly gunzTarPerm extractEntry fonts/roboto/Roboto-Light.ttf
+160 silly gunzTarPerm extractEntry fonts/roboto/Roboto-Light.woff
+161 silly gunzTarPerm extractEntry fonts/roboto/Roboto-Light.woff2
+162 silly gunzTarPerm extractEntry fonts/roboto/Roboto-Medium.eot
+163 silly gunzTarPerm extractEntry fonts/roboto/Roboto-Medium.ttf
+164 silly gunzTarPerm extractEntry fonts/roboto/Roboto-Bold.ttf
+165 error tar.unpack untar error /home/ubuntu/.npm/materialize-css/0.97.6/package.tgz
+166 error tar.unpack untar error /home/ubuntu/.npm/materialize-css/0.97.6/package.tgz
+167 verbose unlock done using /home/ubuntu/.npm/_locks/materialize-css-6a2b99a585ca087b.lock for /home/ubuntu/workspace/app/node_modules/materialize-css
+168 verbose stack Error: ENOSPC: no space left on device, write
+168 verbose stack     at Error (native)
+169 verbose cwd /home/ubuntu/workspace/app
+170 error Linux 4.2.0-c9
+171 error argv "/home/ubuntu/.nvm/versions/node/v4.4.3/bin/node" "/home/ubuntu/.nvm/versions/node/v4.4.3/bin/npm" "install" "materialize-css" "--save"
+172 error node v4.4.3
+173 error npm  v2.15.1
+174 error code ENOSPC
+175 error errno -28
+176 error syscall write
+177 error nospc ENOSPC: no space left on device, write
+177 error nospc This is most likely not a problem with npm itself
+177 error nospc and is related to insufficient space on your system.
+178 verbose exit [ -28, true ]
+179 verbose unbuild node_modules/materialize-css
+180 silly gunzTarPerm extractEntry fonts/roboto/Roboto-Medium.woff2
+181 info preuninstall materialize-css@0.97.6
+182 error tar.unpack untar error /home/ubuntu/.npm/materialize-css/0.97.6/package.tgz
+183 info uninstall materialize-css@0.97.6
+184 verbose unbuild rmStuff materialize-css@0.97.6 from /home/ubuntu/workspace/app/node_modules
+185 info postuninstall materialize-css@0.97.6
+186 silly gentlyRm /home/ubuntu/workspace/app/node_modules/materialize-css is being purged from base /home/ubuntu/workspace/app
+187 verbose gentlyRm don't care about contents; nuking /home/ubuntu/workspace/app/node_modules/materialize-css
+188 silly vacuum-fs purging /home/ubuntu/workspace/app/node_modules/materialize-css
+189 error tar.unpack untar error /home/ubuntu/.npm/materialize-css/0.97.6/package.tgz
+190 error tar.unpack untar error /home/ubuntu/.npm/materialize-css/0.97.6/package.tgz
+191 error tar.unpack untar error /home/ubuntu/.npm/materialize-css/0.97.6/package.tgz
+192 silly vacuum-fs quitting because other entries in /home/ubuntu/workspace/app/node_modules

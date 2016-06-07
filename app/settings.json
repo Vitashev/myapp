@@ -1,0 +1,8 @@
+{
+    "public":{
+        "test": "public variable"
+    },
+    "private":{
+        "ptest": "private variable"
+    }
+}
