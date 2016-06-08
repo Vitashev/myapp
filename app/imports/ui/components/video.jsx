@@ -1,19 +1,33 @@
 import React, {Component, propTypes} from 'react';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
-
+//import noUiSlider from 'meteor/markoshust:nouislider';
+import Nouislider from 'react-nouislider';
 
 export default class Video extends TrackerReact(Component) {
     constructor(props) {
         super(props);
 
         this.state = {
-            progress: 0
+            progress: 0,
+            duration: 1
         };
     }
 
 
+
     componentDidMount() {
-        console.log(this.videoEl.currentTime);
+
+    }
+
+    updateSlider(values, handle){
+        this.videoEl.currentTime = values[0];
+        console.log(values[0]);
+    }
+
+    setDuration(){
+        this.setState({
+            duration: this.videoEl.duration
+        });
     }
 
     setTime() {
@@ -21,6 +35,13 @@ export default class Video extends TrackerReact(Component) {
             progress: this.videoEl.currentTime
         });
         //console.log(this.videoEl.currentTime);
+    }
+
+    play(){
+        this.videoEl.play();
+    }
+    pause(){
+        this.videoEl.pause();
     }
 
     onChange(event) {
@@ -31,20 +52,21 @@ export default class Video extends TrackerReact(Component) {
     }
 
     render() {
+        //console.log(this.videoEl.duration);
 
         return (
             <div>
             
             <div className="row">
                 <div className="col s12 m7">
-                  <div className="card">
+                  <div className="card hoverable">
                     <div className="card-image">
                     
                         <video className="card-video"
                             ref={(el) => {
                                 this.videoEl = el;
                             }}
-                    
+                            onLoadedMetadata={this.setDuration.bind(this)}
                             poster={this.props.poster}
                             onTimeUpdate={this.setTime.bind(this)}>
                             <source src={this.props.src} type="video/mp4"/>
@@ -57,27 +79,24 @@ export default class Video extends TrackerReact(Component) {
                     </div>
                     
                     <div className="row">
-                        <div className="col s2">
-                            <a href="#"><i className="zmdi zmdi-play zmdi-hc-2x waves-effect waves-teal"></i></a>
-                        </div>
-                        <div className="col s10">
-                        
-
-
-                        
-                        
-                            <div className="range-field">
-                            <input type="range" min="0" max="100" ref="input" value={this.state.progress} onChange={this.onChange.bind(this)} 
-                               step="1" />
-                            </div>
+          
+                        <div className="col s12">
+                            <Nouislider onChange={this.updateSlider.bind(this)}
+                                range={{min: 0, max: this.state.duration}}
+                                start={[this.state.progress]}
+                                connect={"lower"}
+                                tooltips
+                            />
                         </div>
                         
                         
                         
 
                     </div>
-                    <div className="card-action">
-                      <a href="#">This is a link</a>
+                    <div className="card-action teal-text">
+                      <a href="#!" className="waves-effect waves-grey lighten-5 btn-flat circle"><i className="material-icons" onClick={this.play.bind(this)}>play_arrow</i></a>
+                      <a href="#!" className="waves-effect waves-teal"><i className="material-icons" onClick={this.pause.bind(this)}>pause</i></a>
+
                     </div>
                   </div>
                 </div>

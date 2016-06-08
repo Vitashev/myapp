@@ -1,8 +1,9 @@
 {
   "name": "app",
-  "private": true
-  
-},
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
   "dependencies": {
     "classnames": "^2.2.5",
     "meteor-node-stubs": "~0.2.0",
@@ -12,6 +13,7 @@
     "react-addons-pure-render-mixin": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-html5video": "^1.2.8",
-    "react-mounter": "^1.2.0"
+    "react-mounter": "^1.2.0",
+    "react-nouislider": "^1.11.0"
   }
 }

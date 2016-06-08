@@ -11,7 +11,7 @@ export const MainLayout = ({
     name: 'description',
     content: 'Default Description'
   });
-  //DocHead.addLink(linkInfo || {rel: "icon", type: "image/png", href: "/icon.png"});
+  //DocHead.addLink(linkInfo || {rel: "stylesheet", type: "text/css", href: "http://fonts.googleapis.com/icon?family=Material+Icons"});
 
   return (
 
