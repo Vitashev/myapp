@@ -21,7 +21,6 @@ export default class Video extends TrackerReact(Component) {
 
     updateSlider(values, handle){
         this.videoEl.currentTime = values[0];
-        console.log(values[0]);
     }
 
     setDuration(){
@@ -30,11 +29,17 @@ export default class Video extends TrackerReact(Component) {
         });
     }
 
+    formatTime(sec){
+        return moment("2015-01-01").startOf('day')
+            .seconds(sec)
+            .format('H:mm:ss');
+    }
+
     setTime() {
         this.setState({
             progress: this.videoEl.currentTime
         });
-        //console.log(this.videoEl.currentTime);
+        console.log();
     }
 
     play(){
@@ -85,7 +90,10 @@ export default class Video extends TrackerReact(Component) {
                                 range={{min: 0, max: this.state.duration}}
                                 start={[this.state.progress]}
                                 connect={"lower"}
-                                tooltips
+                                tooltips = {[{to: function(value) {
+                                  return Math.round(parseInt(value));
+                                }}]}
+                                step={1}
                             />
                         </div>
                         
@@ -93,9 +101,9 @@ export default class Video extends TrackerReact(Component) {
                         
 
                     </div>
-                    <div className="card-action teal-text">
-                      <a href="#!" className="waves-effect waves-grey lighten-5 btn-flat circle"><i className="material-icons" onClick={this.play.bind(this)}>play_arrow</i></a>
-                      <a href="#!" className="waves-effect waves-teal"><i className="material-icons" onClick={this.pause.bind(this)}>pause</i></a>
+                    <div className="card-action">
+                      <a href="#!"><i className="material-icons circle small waves-effect waves-grey teal-text" onClick={this.play.bind(this)}>play_arrow</i></a>
+                      <a href="#!"><i className="material-icons circle small waves-effect waves-grey teal-text" onClick={this.pause.bind(this)}>pause</i></a>
 
                     </div>
                   </div>
