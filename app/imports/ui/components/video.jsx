@@ -1,29 +1,28 @@
 import React, {Component, propTypes} from 'react';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
-//import noUiSlider from 'meteor/markoshust:nouislider';
+import classnames from 'classnames';
 import Nouislider from 'react-nouislider';
 
 export default class Video extends TrackerReact(Component) {
     constructor(props) {
         super(props);
-
+        this.slide = false;
+        this.isPlay = false;
         this.state = {
             progress: 0,
-            duration: 1
+            duration: 1,
         };
     }
 
-
-
     componentDidMount() {
-
     }
 
-    updateSlider(values, handle){
+    onSliderUpdate(values, handle){
         this.videoEl.currentTime = values[0];
+        this.slide = false
     }
 
-    setDuration(){
+    onLoadedMetadata(){
         this.setState({
             duration: this.videoEl.duration
         });
@@ -35,30 +34,30 @@ export default class Video extends TrackerReact(Component) {
             .format('H:mm:ss');
     }
 
-    setTime() {
-        this.setState({
-            progress: this.videoEl.currentTime
-        });
-        console.log();
+    onTimeUpdate() {
+        if(!this.slide){
+            this.setState({
+                progress: this.videoEl.currentTime
+            });
+        }
     }
 
     play(){
         this.videoEl.play();
+        this.isPlay = true;
     }
     pause(){
         this.videoEl.pause();
+        this.isPlay = false;
     }
 
-    onChange(event) {
-        this.videoEl.currentTime = event.target.value;
-        this.setState({
-            progress: event.target.value
-        });
+    onSlide() {
+        if(!this.slide){
+            this.slide = true;
+        }
     }
 
     render() {
-        //console.log(this.videoEl.duration);
-
         return (
             <div>
             
@@ -71,9 +70,9 @@ export default class Video extends TrackerReact(Component) {
                             ref={(el) => {
                                 this.videoEl = el;
                             }}
-                            onLoadedMetadata={this.setDuration.bind(this)}
+                            onLoadedMetadata={this.onLoadedMetadata.bind(this)}
                             poster={this.props.poster}
-                            onTimeUpdate={this.setTime.bind(this)}>
+                            onTimeUpdate={this.onTimeUpdate.bind(this)}>
                             <source src={this.props.src} type="video/mp4"/>
                         </video>
                       <span className="card-title">Card Title</span>
@@ -84,27 +83,30 @@ export default class Video extends TrackerReact(Component) {
                     </div>
                     
                     <div className="row">
-          
-                        <div className="col s12">
-                            <Nouislider onChange={this.updateSlider.bind(this)}
-                                range={{min: 0, max: this.state.duration}}
-                                start={[this.state.progress]}
-                                connect={"lower"}
-                                tooltips = {[{to: function(value) {
-                                  return Math.round(parseInt(value));
-                                }}]}
-                                step={1}
-                            />
+                        <div className="col s1"><span>{this.formatTime(this.state.progress)}</span></div>
+                        <div className="col s10">
+                            <Nouislider
+                                        ref={(el) => {
+                                            this.sliderEl = el;
+                                        }}
+                                        onChange={this.onSliderUpdate.bind(this)}
+                                        onSlide={this.onSlide.bind(this)}
+                                        range={{min: 0, max: this.state.duration}}
+                                        start={[this.state.progress]}
+                                        connect={"lower"}
+                                        step={1} />
                         </div>
-                        
-                        
-                        
-
+                        <div className="col s1"><span>{this.formatTime(this.state.duration)}</span></div>
                     </div>
                     <div className="card-action">
-                      <a href="#!"><i className="material-icons circle small waves-effect waves-grey teal-text" onClick={this.play.bind(this)}>play_arrow</i></a>
-                      <a href="#!"><i className="material-icons circle small waves-effect waves-grey teal-text" onClick={this.pause.bind(this)}>pause</i></a>
-
+                        {(() => {
+                            if (!this.isPlay) {
+                                return <a href="#!"><i className="material-icons circle small waves-effect waves-grey teal-text" onClick={this.play.bind(this)}>play_arrow</i></a>;
+                            }
+                            else {
+                                return <a href="#!"><i className="material-icons circle small waves-effect waves-grey teal-text" onClick={this.pause.bind(this)}>pause</i></a>
+                            }
+                        })()}
                     </div>
                   </div>
                 </div>
