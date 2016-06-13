@@ -7,17 +7,19 @@ export default class Video extends TrackerReact(Component) {
     constructor(props) {
         super(props);
         this.slide = false;
-        this.isPlay = false;
+
         this.state = {
             progress: 0,
             duration: 1,
+            isPlay: false,
+            muted: false
         };
     }
 
     componentDidMount() {
     }
 
-    onSliderUpdate(values, handle){
+    onSliderUpdate(values){
         this.videoEl.currentTime = values[0];
         this.slide = false
     }
@@ -26,12 +28,13 @@ export default class Video extends TrackerReact(Component) {
         this.setState({
             duration: this.videoEl.duration
         });
+        this.timeFormatStr = (parseInt(this.videoEl.duration) > 3600) ? 'H:mm:ss' : 'mm:ss';
     }
 
     formatTime(sec){
         return moment("2015-01-01").startOf('day')
             .seconds(sec)
-            .format('H:mm:ss');
+            .format(this.timeFormatStr);
     }
 
     onTimeUpdate() {
@@ -42,19 +45,36 @@ export default class Video extends TrackerReact(Component) {
         }
     }
 
-    play(){
-        this.videoEl.play();
-        this.isPlay = true;
-    }
-    pause(){
-        this.videoEl.pause();
-        this.isPlay = false;
+    togglePlay(){
+        if(this.state.isPlay){
+            this.videoEl.pause();
+        } else {
+            this.videoEl.play();
+        }
+        this.setState({
+            isPlay: !this.state.isPlay
+        });
     }
 
-    onSlide() {
+    onSlide(value) {
+        console.log(this.sliderEl);
         if(!this.slide){
             this.slide = true;
         }
+        this.setState({
+            progress: parseInt(value[0])
+        });
+    }
+
+    toggleMute(){
+        this.videoEl.muted = !this.videoEl.muted;
+        this.setState({
+            muted: this.videoEl.muted
+        });
+    }
+
+    onVolumeUpdate(value){
+        console.log(value);
     }
 
     render() {
@@ -65,7 +85,6 @@ export default class Video extends TrackerReact(Component) {
                 <div className="col s12 m7">
                   <div className="card hoverable">
                     <div className="card-image">
-                    
                         <video className="card-video"
                             ref={(el) => {
                                 this.videoEl = el;
@@ -78,35 +97,57 @@ export default class Video extends TrackerReact(Component) {
                       <span className="card-title">Card Title</span>
                     </div>
                     <div className="card-content">
-                      <p>I am a very simple card. I am good at containing small bits of information.
-                      I am convenient because I require little markup to use effectively.</p>
-                    </div>
-                    
-                    <div className="row">
-                        <div className="col s1"><span>{this.formatTime(this.state.progress)}</span></div>
-                        <div className="col s10">
-                            <Nouislider
-                                        ref={(el) => {
+                        <div className="row">
+                            <div className="col s12">
+                                <Nouislider
+                                    ref={(el) => {
                                             this.sliderEl = el;
                                         }}
-                                        onChange={this.onSliderUpdate.bind(this)}
-                                        onSlide={this.onSlide.bind(this)}
-                                        range={{min: 0, max: this.state.duration}}
-                                        start={[this.state.progress]}
-                                        connect={"lower"}
-                                        step={1} />
+                                    onChange={this.onSliderUpdate.bind(this)}
+                                    onSlide={this.onSlide.bind(this)}
+                                    range={{min: 0, max: this.state.duration}}
+                                    start={[this.state.progress]}
+                                    connect={"lower"}
+                                    step={1} />
+                            </div>
                         </div>
-                        <div className="col s1"><span>{this.formatTime(this.state.duration)}</span></div>
+                        <div className="row">
+                            <div className="col s12">
+                                <span className="left">{this.formatTime(this.state.progress)}</span>
+                                <span className="right">{this.formatTime(this.state.duration)}</span>
+                            </div>
+                        </div>
                     </div>
                     <div className="card-action">
-                        {(() => {
-                            if (!this.isPlay) {
-                                return <a href="#!"><i className="material-icons circle small waves-effect waves-grey teal-text" onClick={this.play.bind(this)}>play_arrow</i></a>;
-                            }
-                            else {
-                                return <a href="#!"><i className="material-icons circle small waves-effect waves-grey teal-text" onClick={this.pause.bind(this)}>pause</i></a>
-                            }
-                        })()}
+                        <div className="row">
+                            <div className="col s6">
+                                <a href="#!">
+                                    <i className="material-icons circle small waves-effect waves-grey teal-text" onClick={this.togglePlay.bind(this)}>
+                                        {(() => ((this.state.isPlay) ? 'pause' : 'play_arrow'))()}
+                                    </i>
+                                </a>
+                            </div>
+                            <div className="col s6">
+                                <div className="col s2">
+                                    <a href="#!">
+                                        <i className="material-icons circle small waves-effect waves-grey teal-text" onClick={this.toggleMute.bind(this)}>
+                                            {(() => ((this.state.muted) ? 'volume_off' : 'volume_up'))()}
+                                        </i>
+                                    </a>
+                                </div>
+                                <div className="col s10 cus-volume">
+                                    <Nouislider
+                                        ref={(el) => {
+                                            this.volumeEl = el;
+                                        }}
+                                        onSlide={this.onVolumeUpdate.bind(this)}
+                                        range={{min: 0, max: 100}}
+                                        start={[0]}
+                                        connect={"lower"}
+                                        step={1} />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                   </div>
                 </div>
