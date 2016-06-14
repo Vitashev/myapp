@@ -2,6 +2,7 @@ import React, {Component, propTypes} from 'react';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import classnames from 'classnames';
 import Nouislider from 'react-nouislider';
+import Preloader from './preloader.jsx';
 
 export default class Video extends TrackerReact(Component) {
     constructor(props) {
@@ -13,7 +14,8 @@ export default class Video extends TrackerReact(Component) {
             duration: 1,
             volume: 0.3,
             isPlay: false,
-            muted: false
+            muted: false,
+            isLoaded: false
         };
     }
 
@@ -24,7 +26,8 @@ export default class Video extends TrackerReact(Component) {
 
     onLoadedMetadata(){
         this.setState({
-            duration: this.videoEl.duration
+            duration: this.videoEl.duration,
+            isLoaded: true
         });
         this.timeFormatStr = (parseInt(this.videoEl.duration) > 3600) ? true : false;
     }
@@ -37,9 +40,9 @@ export default class Video extends TrackerReact(Component) {
 
         seconds = Math.round(seconds * 100) / 100
 
-        let result = (this.timeFormatStr) ? (hours < 10 ? "0" + hours : hours) + ":" : "";
-        result += (minutes < 10 ? "0" + minutes : minutes);
-        result += ":" + (seconds  < 10 ? "0" + seconds : seconds);
+        let result = (this.timeFormatStr) ? (hours < 10 ? "0" + hours : hours) + ":" : "" +
+        (minutes < 10 ? "0" + minutes : minutes) + ":" +
+        (seconds  < 10 ? "0" + seconds : seconds);
         return result;
 
     }
@@ -97,6 +100,14 @@ export default class Video extends TrackerReact(Component) {
             <div>
             <div className="row">
                 <div className="col s12 m7">
+                <Preloader/>
+
+
+
+
+
+
+
                   <div className="card hoverable">
                     <div className="card-image">
                         <video className="card-video"
