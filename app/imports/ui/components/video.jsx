@@ -11,12 +11,10 @@ export default class Video extends TrackerReact(Component) {
         this.state = {
             progress: 0,
             duration: 1,
+            volume: 0.3,
             isPlay: false,
             muted: false
         };
-    }
-
-    componentDidMount() {
     }
 
     onSliderUpdate(values){
@@ -28,13 +26,22 @@ export default class Video extends TrackerReact(Component) {
         this.setState({
             duration: this.videoEl.duration
         });
-        this.timeFormatStr = (parseInt(this.videoEl.duration) > 3600) ? 'H:mm:ss' : 'mm:ss';
+        this.timeFormatStr = (parseInt(this.videoEl.duration) > 3600) ? true : false;
     }
 
-    formatTime(sec){
-        return moment("2015-01-01").startOf('day')
-            .seconds(sec)
-            .format(this.timeFormatStr);
+    formatTime(totalSeconds){
+        totalSeconds = totalSeconds.toFixed()
+        let hours   = Math.floor(totalSeconds / 3600);
+        let minutes = Math.floor((totalSeconds - (hours * 3600)) / 60);
+        let seconds = totalSeconds - (hours * 3600) - (minutes * 60);
+
+        seconds = Math.round(seconds * 100) / 100
+
+        let result = (this.timeFormatStr) ? (hours < 10 ? "0" + hours : hours) + ":" : "";
+        result += (minutes < 10 ? "0" + minutes : minutes);
+        result += ":" + (seconds  < 10 ? "0" + seconds : seconds);
+        return result;
+
     }
 
     onTimeUpdate() {
@@ -57,7 +64,6 @@ export default class Video extends TrackerReact(Component) {
     }
 
     onSlide(value) {
-        console.log(this.sliderEl);
         if(!this.slide){
             this.slide = true;
         }
@@ -74,13 +80,21 @@ export default class Video extends TrackerReact(Component) {
     }
 
     onVolumeUpdate(value){
-        console.log(value);
+        let volume = parseFloat(value[0]);
+
+        this.videoEl.volume = volume;
+        this.setState({
+            volume
+        });
+        
+        this.setState({
+            muted: (!this.state.volume)
+        });
     }
 
     render() {
         return (
             <div>
-            
             <div className="row">
                 <div className="col s12 m7">
                   <div className="card hoverable">
@@ -141,10 +155,10 @@ export default class Video extends TrackerReact(Component) {
                                             this.volumeEl = el;
                                         }}
                                         onSlide={this.onVolumeUpdate.bind(this)}
-                                        range={{min: 0, max: 100}}
-                                        start={[0]}
+                                        range={{min: 0, max: 1}}
+                                        start={[this.state.volume]}
                                         connect={"lower"}
-                                        step={1} />
+                                        step={0.01} />
                                 </div>
                             </div>
                         </div>
