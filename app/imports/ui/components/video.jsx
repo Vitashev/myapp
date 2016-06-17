@@ -8,6 +8,7 @@ export default class Video extends TrackerReact(Component) {
     constructor(props) {
         super(props);
         this.slide = false;
+        this.isVideoEnded = false;
 
         this.state = {
             progress: 0,
@@ -22,6 +23,11 @@ export default class Video extends TrackerReact(Component) {
     onSliderUpdate(values){
         this.videoEl.currentTime = values[0];
         this.slide = false
+
+        if(this.videoEl.currentTime.toFixed() === this.state.duration.toFixed()){
+            this.isVideoEnded = true;
+            console.log(this.isVideoEnded);
+        }
     }
 
     onLoadedMetadata(){
@@ -55,15 +61,35 @@ export default class Video extends TrackerReact(Component) {
         }
     }
 
-    togglePlay(){
-        if(this.state.isPlay){
-            this.videoEl.pause();
-        } else {
-            this.videoEl.play();
-        }
+    onEnded(){
+        this.isVideoEnded = true;
         this.setState({
-            isPlay: !this.state.isPlay
+            isPlay: false
         });
+        console.log(this.isVideoEnded);
+    }
+
+    togglePlay(){
+
+        if(this.isVideoEnded) {
+            this.videoEl.currentTime = 0;
+            this.setState({
+                progress: this.videoEl.currentTime,
+                isPlay: false
+            });
+            this.isVideoEnded = false;
+        } else {
+            if(this.state.isPlay){
+                this.videoEl.pause();
+            } else {
+                this.videoEl.play();
+            }
+            this.setState({
+                isPlay: !this.state.isPlay
+            });
+        }
+
+
     }
 
     onSlide(value) {
@@ -76,10 +102,12 @@ export default class Video extends TrackerReact(Component) {
     }
 
     toggleMute(){
-        this.videoEl.muted = !this.videoEl.muted;
-        this.setState({
-            muted: this.videoEl.muted
-        });
+        if(this.state.volume > 0){
+            this.videoEl.muted = !this.videoEl.muted;
+            this.setState({
+                muted: this.videoEl.muted
+            });
+        }
     }
 
     onVolumeUpdate(value){
@@ -88,93 +116,103 @@ export default class Video extends TrackerReact(Component) {
         this.videoEl.volume = volume;
         this.setState({
             volume
+
         });
-        
         this.setState({
-            muted: (!this.state.volume)
+            muted: (this.state.volume > 0) ? false : true
         });
+
     }
 
     render() {
+        const isLoadingEnded = classnames({
+            'hide': !this.state.isLoaded
+        });
+
         return (
             <div>
             <div className="row">
                 <div className="col s12 m7">
-                <Preloader/>
-
-
-
-
-
-
-
-                  <div className="card hoverable">
-                    <div className="card-image">
-                        <video className="card-video"
-                            ref={(el) => {
+                    {(()=>((this.state.isLoaded) ? "" : <Preloader/>))()}
+                        <div className={"card hoverable " + isLoadingEnded}>
+                            <div className="card-image">
+                                <video className="card-video"
+                                       ref={(el) => {
                                 this.videoEl = el;
                             }}
-                            onLoadedMetadata={this.onLoadedMetadata.bind(this)}
-                            poster={this.props.poster}
-                            onTimeUpdate={this.onTimeUpdate.bind(this)}>
-                            <source src={this.props.src} type="video/mp4"/>
-                        </video>
-                      <span className="card-title">Card Title</span>
-                    </div>
-                    <div className="card-content">
-                        <div className="row">
-                            <div className="col s12">
-                                <Nouislider
-                                    ref={(el) => {
+                                       onLoadedMetadata={this.onLoadedMetadata.bind(this)}
+                                       onEnded={this.onEnded.bind(this)}
+                                       poster={this.props.poster}
+                                       onTimeUpdate={this.onTimeUpdate.bind(this)}>
+                                    <source src={this.props.src} type="video/mp4"/>
+                                </video>
+                                <span className="card-title">Card Title</span>
+                            </div>
+                            <div className="card-content">
+                                <div className="row">
+                                    <div className="col s12">
+                                        <Nouislider
+                                            ref={(el) => {
                                             this.sliderEl = el;
                                         }}
-                                    onChange={this.onSliderUpdate.bind(this)}
-                                    onSlide={this.onSlide.bind(this)}
-                                    range={{min: 0, max: this.state.duration}}
-                                    start={[this.state.progress]}
-                                    connect={"lower"}
-                                    step={1} />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col s12">
-                                <span className="left">{this.formatTime(this.state.progress)}</span>
-                                <span className="right">{this.formatTime(this.state.duration)}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card-action">
-                        <div className="row">
-                            <div className="col s6">
-                                <a href="#!">
-                                    <i className="material-icons circle small waves-effect waves-grey teal-text" onClick={this.togglePlay.bind(this)}>
-                                        {(() => ((this.state.isPlay) ? 'pause' : 'play_arrow'))()}
-                                    </i>
-                                </a>
-                            </div>
-                            <div className="col s6">
-                                <div className="col s2">
-                                    <a href="#!">
-                                        <i className="material-icons circle small waves-effect waves-grey teal-text" onClick={this.toggleMute.bind(this)}>
-                                            {(() => ((this.state.muted) ? 'volume_off' : 'volume_up'))()}
-                                        </i>
-                                    </a>
+                                            onChange={this.onSliderUpdate.bind(this)}
+                                            onSlide={this.onSlide.bind(this)}
+                                            range={{min: 0, max: this.state.duration}}
+                                            start={[this.state.progress]}
+                                            connect={"lower"}
+                                            step={1} />
+                                    </div>
                                 </div>
-                                <div className="col s10 cus-volume">
-                                    <Nouislider
-                                        ref={(el) => {
+                                <div className="row">
+                                    <div className="col s12">
+                                        <span className="left">{this.formatTime(this.state.progress)}</span>
+                                        <span className="right">{this.formatTime(this.state.duration)}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card-action">
+                                <div className="row">
+                                    <div className="col s6">
+                                        <a href="#!">
+                                            <i className="material-icons circle small waves-effect waves-grey teal-text" onClick={this.togglePlay.bind(this)}>
+                                                {(() => {
+                                                    console.log(this.isVideoEnded);
+                                                    if (this.state.isPlay) {
+                                                        return 'pause';
+                                                    } else if (this.isVideoEnded){
+                                                        return 'refresh';
+                                                    } else {
+                                                        return 'play_arrow';
+                                                    }
+                                                })()}
+                                            </i>
+                                        </a>
+                                    </div>
+                                    <div className="col s6">
+                                        <div className="col s2">
+                                            <a href="#!">
+                                                <i className="material-icons circle small waves-effect waves-grey teal-text" onClick={this.toggleMute.bind(this)}>
+                                                    {(() => ((this.state.muted) ? 'volume_off' : 'volume_up'))()}
+                                                </i>
+                                            </a>
+                                        </div>
+                                        <div className="col s10 cus-volume">
+                                            <Nouislider
+                                                ref={(el) => {
                                             this.volumeEl = el;
                                         }}
-                                        onSlide={this.onVolumeUpdate.bind(this)}
-                                        range={{min: 0, max: 1}}
-                                        start={[this.state.volume]}
-                                        connect={"lower"}
-                                        step={0.01} />
+                                                onSlide={this.onVolumeUpdate.bind(this)}
+                                                range={{min: 0, max: 1}}
+                                                start={[this.state.volume]}
+                                                connect={"lower"}
+                                                step={0.01} />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                  </div>
+
+
                 </div>
               </div>
             </div>

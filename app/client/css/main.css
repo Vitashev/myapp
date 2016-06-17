@@ -66,6 +66,11 @@
     padding-top:8px !important;
 }
 
+.center-child{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 /*!
  * Materialize v0.97.6 (http://materializecss.com)
