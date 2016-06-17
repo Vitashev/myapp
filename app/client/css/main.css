@@ -72,6 +72,11 @@
     align-items: center;
 }
 
+button, button:focus, button:hover {
+    background:none;
+    border:none;
+}
+
 /*!
  * Materialize v0.97.6 (http://materializecss.com)
  * Copyright 2014-2015 Materialize

@@ -8,7 +8,6 @@ export default class Video extends TrackerReact(Component) {
     constructor(props) {
         super(props);
         this.slide = false;
-        this.isVideoEnded = false;
 
         this.state = {
             progress: 0,
@@ -16,7 +15,9 @@ export default class Video extends TrackerReact(Component) {
             volume: 0.3,
             isPlay: false,
             muted: false,
-            isLoaded: false
+            isLoaded: false,
+            isVideoEnded: false,
+            isFullscreen: false
         };
     }
 
@@ -24,9 +25,17 @@ export default class Video extends TrackerReact(Component) {
         this.videoEl.currentTime = values[0];
         this.slide = false
 
+        if(this.state.isVideoEnded) {
+            this.setState({
+                isPlay: false,
+                isVideoEnded: false
+            });
+        }
+
         if(this.videoEl.currentTime.toFixed() === this.state.duration.toFixed()){
-            this.isVideoEnded = true;
-            console.log(this.isVideoEnded);
+            this.setState({
+                isVideoEnded: true
+            });
         }
     }
 
@@ -62,22 +71,20 @@ export default class Video extends TrackerReact(Component) {
     }
 
     onEnded(){
-        this.isVideoEnded = true;
         this.setState({
-            isPlay: false
+            isPlay: false,
+            isVideoEnded: true
         });
-        console.log(this.isVideoEnded);
     }
 
     togglePlay(){
 
-        if(this.isVideoEnded) {
+        if(this.state.isVideoEnded) {
             this.videoEl.currentTime = 0;
             this.setState({
-                progress: this.videoEl.currentTime,
-                isPlay: false
+                isPlay: false,
+                isVideoEnded: false
             });
-            this.isVideoEnded = false;
         } else {
             if(this.state.isPlay){
                 this.videoEl.pause();
@@ -124,22 +131,33 @@ export default class Video extends TrackerReact(Component) {
 
     }
 
+    toggleFullscreen(){
+        this.setState({
+            isFullscreen:  !this.state.isFullscreen
+        });
+    }
+
     render() {
         const isLoadingEnded = classnames({
             'hide': !this.state.isLoaded
         });
 
+        const isFullscreen = classnames({
+            'm7': !this.state.isFullscreen,
+            'm12 animated zoomIn': this.state.isFullscreen
+        });
+
         return (
             <div>
             <div className="row">
-                <div className="col s12 m7">
+                <div className={"col s12 " + isFullscreen}>
                     {(()=>((this.state.isLoaded) ? "" : <Preloader/>))()}
                         <div className={"card hoverable " + isLoadingEnded}>
                             <div className="card-image">
                                 <video className="card-video"
                                        ref={(el) => {
-                                this.videoEl = el;
-                            }}
+                                            this.videoEl = el;
+                                        }}
                                        onLoadedMetadata={this.onLoadedMetadata.bind(this)}
                                        onEnded={this.onEnded.bind(this)}
                                        poster={this.props.poster}
@@ -172,47 +190,51 @@ export default class Video extends TrackerReact(Component) {
                             </div>
                             <div className="card-action">
                                 <div className="row">
-                                    <div className="col s6">
-                                        <a href="#!">
+                                    <div className="col s4">
+                                        <button>
                                             <i className="material-icons circle small waves-effect waves-grey teal-text" onClick={this.togglePlay.bind(this)}>
                                                 {(() => {
-                                                    console.log(this.isVideoEnded);
                                                     if (this.state.isPlay) {
                                                         return 'pause';
-                                                    } else if (this.isVideoEnded){
+                                                    } else if (this.state.isVideoEnded){
                                                         return 'refresh';
                                                     } else {
                                                         return 'play_arrow';
                                                     }
                                                 })()}
                                             </i>
-                                        </a>
+                                        </button>
                                     </div>
-                                    <div className="col s6">
+                                    <div className="col s8">
                                         <div className="col s2">
-                                            <a href="#!">
+                                            <button>
                                                 <i className="material-icons circle small waves-effect waves-grey teal-text" onClick={this.toggleMute.bind(this)}>
                                                     {(() => ((this.state.muted) ? 'volume_off' : 'volume_up'))()}
                                                 </i>
-                                            </a>
+                                            </button>
                                         </div>
-                                        <div className="col s10 cus-volume">
+                                        <div className="col s8 cus-volume">
                                             <Nouislider
                                                 ref={(el) => {
-                                            this.volumeEl = el;
-                                        }}
+                                                    this.volumeEl = el;
+                                                }}
                                                 onSlide={this.onVolumeUpdate.bind(this)}
                                                 range={{min: 0, max: 1}}
                                                 start={[this.state.volume]}
                                                 connect={"lower"}
                                                 step={0.01} />
                                         </div>
+                                        <div className="col s2 right-align">
+                                            <button onClick={this.toggleFullscreen.bind(this)}>
+                                                <i className="material-icons circle small waves-effect waves-grey teal-text">
+                                                    {(() => ((this.state.isFullscreen) ? 'fullscreen_exit' : 'fullscreen'))()}
+                                                </i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
                 </div>
               </div>
             </div>
