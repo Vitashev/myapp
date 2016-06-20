@@ -144,7 +144,7 @@ export default class Video extends TrackerReact(Component) {
 
         const isFullscreen = classnames({
             'm7': !this.state.isFullscreen,
-            'm12 animated zoomIn': this.state.isFullscreen
+            'm12': this.state.isFullscreen
         });
 
         return (
