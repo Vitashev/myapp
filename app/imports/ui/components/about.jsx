@@ -1,23 +1,32 @@
 import React, {Component} from 'react';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import Video from './video.jsx';
+import {Meteor} from 'meteor/meteor';
+import {Videos} from '../../api/collections/lists.js';
+import parser from 'subtitles-parser';
 
 export default class About extends TrackerReact(Component) {
-    
+
+    constructor(props){
+        super(props);
+        this.state = {
+            subscriptions: {
+                videos:  Meteor.subscribe('allVideos')
+            }
+        }
+
+    }
+
+    componentWillUnmount() {
+        this.state.subscriptions.videos.stop();
+    }
+
     render(){
-        var sources = [ "sintel_trailer-720p.mp4"]
-        var videoOptions = {
-          url: 'http://videos.thisisepic.com/2b9c1bf3-e19b-4be5-9d36-246c5d3607d8/high.mp4',
-          poster: 'http://thumbnails.thisisepic.com/b1ce00de-e687-4c1b-97ac-afa05a287327/large/frame_0005.png'
-        };
+        const video = Videos.findOne();
+
         return(
             <div>
-                <p><video controls="controls">
-                    <source src="./TheBigBangTheoryPilot.webm" type="video/webm" />Your browser does not support the video tag.
-                </video></p>
-            <Video 
-                poster="http://thumbnails.thisisepic.com/b1ce00de-e687-4c1b-97ac-afa05a287327/large/frame_0005.png"
-                src="http://videos.thisisepic.com/2b9c1bf3-e19b-4be5-9d36-246c5d3607d8/high.mp4"/>
+                {(()=>((this.state.subscriptions.videos.ready()) ? <Video poster={video.poster} src={video.src}/> : ''))()}
             </div>
             )
     }
