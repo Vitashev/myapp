@@ -83,6 +83,16 @@ button, button:focus, button:hover {
     transition: width .2s;
 }
 
+
+.subtitle {
+    text-align: center;
+    width: 100%;
+    margin-top: -50px;
+}
+.subtitle > span{
+    background-color: #1a1a1a;
+}
+
 /*!
  * Materialize v0.97.6 (http://materializecss.com)
  * Copyright 2014-2015 Materialize

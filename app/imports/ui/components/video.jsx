@@ -3,6 +3,7 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import classnames from 'classnames';
 import Nouislider from 'react-nouislider';
 import Preloader from './preloader.jsx';
+import {Meteor} from 'meteor/meteor';
 
 export default class Video extends TrackerReact(Component) {
     constructor(props) {
@@ -19,11 +20,22 @@ export default class Video extends TrackerReact(Component) {
             isVideoEnded: false,
             isFullscreen: false
         };
+        this.srt = this.props.dataSrt;
+        this.srtPointer = 0;
+        //Meteor.call('getSubtitle', this.props.data._id);
     }
 
     onSliderUpdate(values){
         this.videoEl.currentTime = values[0];
         this.slide = false
+        var test2 = this.timeToSec;
+        var test3 = parseInt(this.state.progress);
+        var test = this.srt.data.findIndex(function (element) {
+            return ((parseInt(test2(element.endTime)) > test3));
+        });
+        this.srtPointer = test-1;
+        console.log(test);
+
 
         if(this.state.isVideoEnded) {
             this.setState({
@@ -44,7 +56,7 @@ export default class Video extends TrackerReact(Component) {
             duration: this.videoEl.duration,
             isLoaded: true
         });
-        this.timeFormatStr = (parseInt(this.videoEl.duration) > 3600) ? true : false;
+        this.timeFormatStr = (parseInt(this.videoEl.duration) > 3600);
     }
 
     formatTime(totalSeconds){
@@ -62,11 +74,22 @@ export default class Video extends TrackerReact(Component) {
 
     }
 
+    timeToSec(hms){
+        var res = hms.substring(0, hms.indexOf(','));
+        var a = res.split(':');
+
+        return ((+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]));
+    }
+
     onTimeUpdate() {
         if(!this.slide){
             this.setState({
                 progress: this.videoEl.currentTime
             });
+
+            if(parseInt(this.videoEl.currentTime) === parseInt(this.timeToSec(this.srt.data[this.srtPointer+1].endTime))){
+                this.srtPointer++;
+            }
         }
     }
 
@@ -95,8 +118,6 @@ export default class Video extends TrackerReact(Component) {
                 isPlay: !this.state.isPlay
             });
         }
-
-
     }
 
     onSlide(value) {
@@ -126,7 +147,7 @@ export default class Video extends TrackerReact(Component) {
 
         });
         this.setState({
-            muted: (this.state.volume > 0) ? false : true
+            muted: !(this.state.volume > 0)
         });
 
     }
@@ -137,13 +158,27 @@ export default class Video extends TrackerReact(Component) {
         });
     }
 
+    goPrev(){
+        console.log('prev');
+    }
+
+    goNext(){
+        console.log('next');
+    }
+
+    getSrt(){
+        if(this.state.progress){
+            return this.srt.data[this.srtPointer].text;
+        }
+    }
+
     render() {
         const isLoadingEnded = classnames({
             'hide': !this.state.isLoaded
         });
 
         const isFullscreen = classnames({
-            'm7': !this.state.isFullscreen,
+            'm8': !this.state.isFullscreen,
             'm12': this.state.isFullscreen
         });
 
@@ -160,11 +195,11 @@ export default class Video extends TrackerReact(Component) {
                                         }}
                                        onLoadedMetadata={this.onLoadedMetadata.bind(this)}
                                        onEnded={this.onEnded.bind(this)}
-                                       poster={this.props.poster}
+                                       poster={this.props.dataVideo.poster}
                                        onTimeUpdate={this.onTimeUpdate.bind(this)}>
-                                    <source src={this.props.src} type="video/mp4"/>
+                                    <source src={this.props.dataVideo.src} type="video/mp4"/>
                                 </video>
-                                <span className="card-title">Card Title</span>
+                                <div className="card-title subtitle"><span>{this.getSrt()}</span></div>
                             </div>
                             <div className="card-content">
                                 <div className="row">
@@ -185,6 +220,24 @@ export default class Video extends TrackerReact(Component) {
                                     <div className="col s12">
                                         <span className="left">{this.formatTime(this.state.progress)}</span>
                                         <span className="right">{this.formatTime(this.state.duration)}</span>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col s12">
+                                        <span className="left">
+                                            <button onClick={this.goPrev.bind(this)}>
+                                                <i className="material-icons circle small waves-effect waves-grey teal-text">
+                                                    navigate_before
+                                                </i>
+                                            </button>
+                                        </span>
+                                        <span className="right">
+                                            <button onClick={this.goNext.bind(this)}>
+                                                <i className="material-icons circle small waves-effect waves-grey teal-text">
+                                                    navigate_next
+                                                </i>
+                                            </button>
+                                        </span>
                                     </div>
                                 </div>
                             </div>

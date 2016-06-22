@@ -1,13 +1,12 @@
-import {Resolutions} from '../imports/api/collections/lists.js';
+import {Resolutions, Subtitles} from '../imports/api/collections/lists.js';
 import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
 import parser from 'subtitles-parser';
 
-var fs = Npm.require('fs');
-var srt = fs.readFileSync('./public/subtitles/TheBigBangTheory-1x01-Pilot.720pHDTV.CTU.en.srt');
+//var fs = Npm.require('fs');
+//var srt = fs.readFileSync('TheBigBangTheory-1x01-Pilot.720pHDTV.CTU.en.srt');
 
-var data = parser.fromSrt(srt);
-console.log(data);
+//console.log(data);
 
 Meteor.methods({
   'resolutions.insert'(text) {
@@ -19,10 +18,10 @@ Meteor.methods({
     }
  
     Resolutions.insert({
-    text,
-    complete: false,
-    createdAt: new Date(),
-    owner: Meteor.userId()
+      text,
+      complete: false,
+      createdAt: new Date(),
+      owner: Meteor.userId()
     });
   },
 
@@ -39,10 +38,14 @@ Meteor.methods({
     Resolutions.update(id, {$set: {complete: !isComplete}});
   },
 
-  'getSubtitle'() {
-    
-    //var res = HTTP.get('/subtitles/TheBigBangTheory-1x01-Pilot.720pHDTV.CTU.en.srt');
-    //console.log(response);
+  getSubtitle(id){
+
+    let srt = Assets.getText('subtitles/TheBigBangTheory-1x01-Pilot.720pHDTV.CTU.en.srt');
+    Subtitles.insert({
+      videoId: id,
+      data: parser.fromSrt(srt)
+    });
+    console.log("added " + id);
   }
 
 

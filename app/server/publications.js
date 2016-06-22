@@ -1,4 +1,4 @@
-import {Resolutions, Videos} from '../imports/api/collections/lists.js';
+import {Resolutions, Videos, Subtitles} from '../imports/api/collections/lists.js';
 import {Meteor} from 'meteor/meteor';
 
 Meteor.publish('allResolutions', function() {
@@ -7,4 +7,8 @@ Meteor.publish('allResolutions', function() {
 
 Meteor.publish('allVideos', function() {
     return Videos.find({});
+});
+
+Meteor.publish('allSubtitles', function() {
+    return Subtitles.find({});
 });
